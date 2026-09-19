@@ -1,0 +1,17 @@
+# Secrets and environment files
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+.secrets/
+
+# Local overrides that must never be committed
+*-extra.yml
+*.auto.tfvars
+!*.auto.tfvars.example
+
+# Runtime data and logs
+data/
+*.log
