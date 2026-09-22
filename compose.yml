@@ -25,6 +25,7 @@ services:
             label: "Authentik",
             args: {
               name: "openid_connect",
+              debug: true,
               scope: ["openid", "profile", "email"],
               response_type: "code",
               issuer: "${AUTHENTIK_ISSUER}",
