@@ -19,8 +19,8 @@ services:
         # The token realm is where docker clients fetch their pull/push token.
         # It defaults to the external URL, which sits behind the proxy's
         # auth gate, so it can be pointed somewhere clients can reach.
-        registry_external_url 'https://${GITLAB_REGISTRY_HOSTNAME}'
-        registry['token_realm'] = '${GITLAB_REGISTRY_TOKEN_REALM}'
+        registry_external_url 'https://${GITLAB_REGISTRY_HOSTNAME:?GITLAB_REGISTRY_HOSTNAME is not set}'
+        registry['token_realm'] = '${GITLAB_REGISTRY_TOKEN_REALM:?GITLAB_REGISTRY_TOKEN_REALM is not set}'
         registry_nginx['listen_port'] = 5050
         registry_nginx['listen_https'] = false
         registry_nginx['proxy_set_headers'] = { "X-Forwarded-Proto" => "https", "X-Forwarded-Ssl" => "on" }
@@ -53,7 +53,7 @@ services:
     ports:
       - "${GITLAB_HTTP_PORT}:80"
       - "${GITLAB_SSH_PORT}:22"
-      - "${GITLAB_REGISTRY_PORT}:5050"
+      - "${GITLAB_REGISTRY_PORT:?GITLAB_REGISTRY_PORT is not set}:5050"
     volumes:
       - ${GITLAB_DATA_DIR}/config:/etc/gitlab
       - ${GITLAB_DATA_DIR}/data:/var/opt/gitlab
